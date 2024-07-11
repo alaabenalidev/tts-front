@@ -1,0 +1,23 @@
+<div class="cover"></div>
+
+<div class="tl">TRANSACTION LOG</div>
+<div class="transaction-log"></div>
+
+    <div class="log-container">
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>SENDER</th>
+                <th>RECEIVER</th>
+                <th>AMOUNT</th>
+                <th>DATE & TIME</th>
+            </tr>
+            <tr *ngFor="let entry of transactionLogEntries">
+                <td>{{ entry.id }}</td>
+                <td>{{ entry.sender }}</td>
+                <td>{{ entry.receiver }}</td>
+                <td>{{ entry.amount }}</td>
+                <td>{{ entry.time }}</td>
+            </tr>
+        </table>
+    </div>
