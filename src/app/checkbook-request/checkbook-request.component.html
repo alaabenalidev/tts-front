@@ -6,16 +6,16 @@
     <div class="checkbook-request-container">
         <div class="request-form">
             <div class="form">
-                <form > 
+                <form [formGroup]="checkbookRequestForm" (ngSubmit)="onSubmit()" >
                     <div class="form-group">
                         <label for="quantity" class="label">Quantity of checks:</label>
                         <input type="number" id="quantity" formControlName="quantity" placeholder="Quantité de chèques" class="input">
                         <div *ngIf="checkbookRequestForm?.get('quantity')!.errors && checkbookRequestForm?.get('quantity')!.touched" class="text-danger">
                             La quantité de chèques est requise et doit être inférieure ou égale à 5
-                        </div>  
+                        </div>
                     </div>
-                    
-                
+
+
                     <!-- Ajoutez d'autres champs de formulaire selon vos besoins -->
 
                     <button type="submit" class="button">Submit</button>

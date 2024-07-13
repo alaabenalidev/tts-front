@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
-import { User} from '../les classes/User';
 import { UserService } from '../Les Services/User.service';
 import { Role } from '../les classes/Role.enum';
+import {AuthService} from "../_auth/auth.service";
+import {User} from "../_models/User";
+import {TokenStorageService} from "../_auth/token-storage.service";
 
 @Component({
   selector: 'app-createuser',
@@ -14,7 +16,7 @@ export class CreateuserComponent {
   userForm: FormGroup;
   errorMessage: string = '';
 
-  constructor(private formBuilder: FormBuilder, private userService: UserService, private router: Router) {
+  constructor(private formBuilder: FormBuilder,private tokenStorageService:TokenStorageService, private userService: UserService,private authService:AuthService, private router: Router) {
     this.userForm = this.formBuilder.group({
       name: ['', Validators.required],
       phone: ['', Validators.required],
@@ -29,20 +31,22 @@ export class CreateuserComponent {
       const user: User = {
         id: 0,
         name: this.userForm.get('name')?.value,
-        phone: this.userForm.get('phone')?.value,
+        phoneNumber: this.userForm.get('phone')?.value,
         email: this.userForm.get('email')?.value,
+        address:"",
         password: this.userForm.get('password')?.value,
-        role: Role.USER
+        enabled:false,
+        accountLocked:false,
+        role: Role.SUPERADMIN
       };
 
-      this.userService.register(user).subscribe(
+      this.authService.register(user).subscribe(
         response => {
           console.log('User registered successfully', response);
-          localStorage.setItem('token', response.token);
           this.userForm.reset();
           setTimeout(() => {
             this.router.navigate(['/login']);
-          }, 3000); // Redirect after 3 seconds
+          }, 3000);
         },
         error => {
           console.error('Error registering user', error);

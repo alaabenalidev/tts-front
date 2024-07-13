@@ -84,53 +84,49 @@
         </tbody>
     </table>
 
-    <h2 id="section3">Checkbook Request</h2>
-    <table id="table3" class="table">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Quantity of checks</th>
-                <th scope="col">Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>
-                    <button class="btn btn-accept">Accept</button>
-                    <button class="btn btn-refuse">Refuse</button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+  <h2 id="section4">Checkbook Requests</h2>
+  <table id="table4" class="table"taw>
+    <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">User Name</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of listRequestCheckBook">
+      <th scope="row">{{ item.id}}</th>
+      <td>{{ item.bankAccount.user.name}}</td>
+      <td>{{ item.quantity }}</td>
+      <td>
+        <button class="btn btn-accept" (click)="submitRequestCheckbook(item.id,true)">Accept</button>
+        <button class="btn btn-refuse" (click)="submitRequestCheckbook(item.id,false)">Refuse</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
 
-    <h2 id="section4">Credit Card Request</h2>
-    <table id="table4" class="table">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Full Name</th>
-                <th scope="col">Email</th>
-                <th scope="col">Phone Number</th>
-                <th scope="col">Annual revenue</th>
-                <th scope="col">Address</th>
-                <th scope="col">Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>Amir</td>
-                <td>Amirlouai02@gmail.com</td>
-                <td>99407100</td>
-                <td>210000</td>
-                <td>soukra</td>
-                <td>
-                    <button class="btn btn-accept">Accept</button>
-                    <button class="btn btn-refuse">Refuse</button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+  <h2 id="section7">Credit Card Requests</h2>
+  <table id="table7" class="table"taw>
+    <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Annual Income</th>
+      <th scope="col">Request Date</th>
+      <th scope="col">Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of listRequestCreditCards">
+      <th scope="row">{{ item.id}}</th>
+      <td>{{ item.annualIncome}}</td>
+      <td>{{ item.createDate | date :'dd/MM/YYYY HH:mm' }}</td>
+      <td>
+        <button class="btn btn-accept" (click)="submitRequestCreditCard(item.id,true)">Accept</button>
+        <button class="btn btn-refuse" (click)="submitRequestCreditCard(item.id,false)">Refuse</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
 </div>

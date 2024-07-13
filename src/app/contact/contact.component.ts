@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ContactService} from "../Les Services/Contact.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-contact',
@@ -7,24 +9,22 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./contact.component.css']
 })
 export class ContactComponent implements OnInit {
-setSubjects(arg0: string) {
-throw new Error('Method not implemented.');
-}
-  
+  setSubjects(arg0: string) {
+    throw new Error('Method not implemented.');
+  }
+
   contactForm: FormGroup;
   showOptions: boolean = false;
-subjects: any;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder,private contactService:ContactService,private router:Router) {
     this.contactForm = this.formBuilder.group({
-      name: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      subject: ['', Validators.required],
+      subject: [1, [Validators.required,Validators.min(1)]],
       message: ['', Validators.required]
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   selectSubject(subject: string): void {
     this.contactForm.get('subject')!.setValue(subject);
@@ -36,14 +36,17 @@ subjects: any;
   }
 
   onSubmit(): void {
+    console.log(this.contactForm.value);
     if (this.contactForm.valid) {
-      console.log(this.contactForm.value);
-      // Ici, tu peux soumettre les données du formulaire à ton backend ou effectuer d'autres actions nécessaires
+      this.contactService.saveRequest(this.contactForm.get("subject")?.value, this.contactForm.get("message")?.value).subscribe(data=>{
+        this.router.navigate(['/home']);
+      })
+
     } else {
       alert('Veuillez remplir correctement le formulaire avant de soumettre.');
     }
   }
-  
+
 
   // Méthodes pour accéder facilement aux contrôles du formulaire dans le template HTML
   public get nameControl() {

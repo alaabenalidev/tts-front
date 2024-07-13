@@ -17,8 +17,6 @@ export class TransferMoneyComponent implements OnInit {
 
   ngOnInit(): void {
     this.transferForm = this.fb.group({
-      cin: ['', Validators.required],
-      name: ['', Validators.required],
       rib: ['', Validators.required],
       amount: ['', Validators.required]
     });

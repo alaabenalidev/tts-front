@@ -13,11 +13,11 @@
                 <th>DATE & TIME</th>
             </tr>
             <tr *ngFor="let entry of transactionLogEntries">
-                <td>{{ entry.id }}</td>
-                <td>{{ entry.sender }}</td>
-                <td>{{ entry.receiver }}</td>
+                <td>{{ entry.idTransaction }}</td>
+                <td>{{ entry.bankAccountSender.user.name }}</td>
+                <td>{{ entry.bankAccountReceiver.user.name }}</td>
                 <td>{{ entry.amount }}</td>
-                <td>{{ entry.time }}</td>
+                <td>{{ entry.date | date :'dd/MM/YYYY hh:mm' }}</td>
             </tr>
         </table>
     </div>

@@ -22,9 +22,9 @@ export class TransactionService {
     }
   }
 
-  addTransaction(transaction: BankTransaction): Observable<string> {
+  addTransaction(transaction: BankTransaction) {
     const headers = this.getAuthHeaders();
-    return this.http.post<string>(`${this.apiUrl}/add`, transaction, { headers });
+    return this.http.post(`${this.apiUrl}/add`, transaction);
   }
 
   deleteTransaction(idTransaction: number): Observable<string> {

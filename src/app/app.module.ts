@@ -4,7 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { TabsModule } from 'ngx-bootstrap/tabs'; // Vérifiez l'importation de TabsModule
 
 import { AppComponent } from './app.component';
@@ -21,6 +21,9 @@ import { CreditcardComponent } from './creditcard/creditcard.component';
 import { CreateuserComponent } from './createuser/createuser.component';
 import { AdmindashboardComponent } from './admindashboard/admindashboard.component';
 import { SuperadminComponent } from './superadmin/superadmin.component';
+import {AuthGuard} from "./_auth/auth-guard.service";
+import {AuthInterceptor} from "./_auth/auth.interceptor";
+import {authInterceptorProviders} from "./_helpers/auth.interceptor";
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,7 +51,7 @@ import { SuperadminComponent } from './superadmin/superadmin.component';
     FormsModule,
     TabsModule.forRoot() // Assurez-vous d'importer TabsModule.forRoot() correctement
   ],
-  providers: [],
+  providers: [AuthGuard,{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},authInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
