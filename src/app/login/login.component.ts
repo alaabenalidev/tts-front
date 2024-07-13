@@ -44,7 +44,7 @@ export class LoginComponent {
           // sessionStorage.setItem('role', authResponse.role);
           switch (authResponse.role) {
             case 'ADMIN':
-              this.router.navigate(['/superadmin']);
+              this.router.navigate(['/admindashboard']);
               break;
             case 'SUPERADMIN':
               this.router.navigate(['/superadmin']);

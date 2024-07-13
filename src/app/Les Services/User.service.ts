@@ -12,10 +12,14 @@ export class UserService {
   }*/
   private apiUrl = 'http://localhost:8081/auth';
   private apiUrlUser = 'http://localhost:8081/User';
+  private apiUrlInfo = 'http://localhost:8081/api/v1/users/';
 
   constructor(private http: HttpClient) {
   }
 
+  getInfoUser(): Observable<User> {
+    return this.http.get<User>(this.apiUrlInfo + 'get-info');
+  }
   register(user: User): Observable<any> {
     return this.http.post(`${this.apiUrl}/register`, user);
   }
